@@ -1,763 +1,361 @@
 
-<!doctype html>
+<!DOCTYPE html>
 <html lang="es">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
 <meta name="theme-color" content="#100d22">
 <title>AI DE GUIONES</title>
-<link rel="manifest" href="manifest.webmanifest">
 
 <style>
-:root{
- color-scheme:dark;
- --bg:#100d22;
- --panel:#1c1734;
- --muted:#b8b0d3;
- --a:#a855f7;
- --b:#22d3ee;
- --pink:#f472b6;
+:root {
+  --bg: #100d22;
+  --panel: #1c1734;
+  --purple: #8b5cf6;
+  --blue: #22d3ee;
+  --text: #ffffff;
+  --muted: #b8b2cc;
 }
-*{box-sizing:border-box}
-body{
- margin:0;
- background:
- radial-gradient(circle at 10% 0%,#39205e 0,transparent 35%),
- radial-gradient(circle at 90% 15%,#123e58 0,transparent 30%),
- var(--bg);
- font:16px system-ui;
- color:#fff;
- min-height:100vh;
-}
-main{max-width:760px;margin:auto;padding:22px 16px 48px}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{
- width:54px;height:54px;border-radius:17px;
- background:linear-gradient(135deg,var(--a),var(--b),var(--pink));
- display:grid;place-items:center;font-size:25px;font-weight:900;
- box-shadow:0 0 28px #a855f766;
-}
-h1{font-size:23px;margin:0}
-.tag{font-size:12px;color:#d8c7ff}
-.card{
- background:#1c1734dd;border:1px solid #ffffff20;
- border-radius:20px;padding:17px;margin-top:17px;
- box-shadow:0 12px 36px #0004;
-}
-label{display:block;font-weight:650;margin:12px 0 7px}
-input,textarea,select{
- width:100%;border:1px solid #ffffff25;
- background:#100d22;color:white;border-radius:12px;
- padding:13px;font:inherit;
-}
-textarea{min-height:105px;resize:vertical}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.btn{
- border:0;border-radius:13px;padding:13px 16px;
- font-weight:750;color:white;
- background:linear-gradient(100deg,#9333ea,#2563eb,#db2777);
- width:100%;margin-top:14px;font-size:15px;
-}
-.btn.secondary{background:#342b50;border:1px solid #ffffff25}
-.result{
- white-space:pre-wrap;line-height:1.55;
- background:#100d22;border-radius:13px;
- padding:14px;min-height:90px;
-}
-.note{font-size:12px;line-height:1.5;color:var(--muted)}
-.actions{display:flex;gap:9px}
-.actions button{flex:1}
 
-/* Navegación */
-.nav{display:flex;gap:10px;margin-top:20px}
-.nav button{
- flex:1;padding:13px 8px;border:1px solid #ffffff25;
- border-radius:13px;background:#342b50;color:white;
- font-weight:bold;
+* {
+  box-sizing: border-box;
 }
-.nav button.active{
- background:linear-gradient(100deg,#9333ea,#2563eb);
-}
-.screen{display:none}
-.screen.active{display:block}
 
-/* Chat */
-.chat-box{
- height:55vh;min-height:300px;max-height:550px;
- overflow-y:auto;display:flex;flex-direction:column;
- gap:12px;padding:12px;background:#100d22;
- border-radius:15px;
+body {
+  margin: 0;
+  padding: 18px;
+  background: var(--bg);
+  color: var(--text);
+  font-family: Arial, sans-serif;
 }
-.message{
- padding:12px;border-radius:14px;max-width:88%;
- line-height:1.5;white-space:pre-wrap;
- overflow-wrap:anywhere;
+
+header {
+  text-align: center;
+  padding: 20px 10px;
 }
-.bot{background:#342653;align-self:flex-start}
-.user{background:#49318b;align-self:flex-end}
-.chat-input{display:flex;gap:8px;margin-top:12px}
-.chat-input input{min-width:0;flex:1}
-.chat-input button{
- border:0;border-radius:12px;padding:12px 18px;
- color:white;background:linear-gradient(100deg,#9333ea,#2563eb);
- font-size:18px;
+
+.logo {
+  font-size: 34px;
+  font-weight: bold;
+  color: var(--blue);
+  text-shadow: 0 0 15px var(--purple);
+}
+
+header p {
+  color: var(--muted);
+}
+
+nav {
+  display: flex;
+  gap: 10px;
+  max-width: 600px;
+  margin: 15px auto 25px;
+}
+
+nav button {
+  flex: 1;
+}
+
+button {
+  border: 0;
+  border-radius: 12px;
+  padding: 13px;
+  background: linear-gradient(100deg, var(--purple), #5141d9);
+  color: white;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+button:active {
+  opacity: .8;
+}
+
+.screen {
+  display: none;
+  max-width: 600px;
+  margin: auto;
+}
+
+.screen.active {
+  display: block;
+}
+
+.panel {
+  background: var(--panel);
+  border: 1px solid #39305e;
+  border-radius: 17px;
+  padding: 18px;
+  margin-bottom: 15px;
+  box-shadow: 0 0 18px #8b5cf622;
+}
+
+h2 {
+  color: var(--blue);
+}
+
+label {
+  display: block;
+  margin: 14px 0 7px;
+  color: var(--muted);
+}
+
+input, select, textarea {
+  width: 100%;
+  padding: 13px;
+  border-radius: 10px;
+  border: 1px solid #514477;
+  background: #100d22;
+  color: white;
+  font-size: 15px;
+}
+
+textarea {
+  min-height: 100px;
+  resize: vertical;
+}
+
+.main-button {
+  width: 100%;
+  margin-top: 17px;
+}
+
+#result {
+  white-space: pre-wrap;
+  line-height: 1.6;
+  color: white;
+}
+
+.chat-box {
+  height: 350px;
+  overflow-y: auto;
+  background: #100d22;
+  border-radius: 12px;
+  padding: 12px;
+  margin-bottom: 12px;
+}
+
+.message {
+  padding: 12px;
+  border-radius: 12px;
+  margin: 9px 0;
+  max-width: 90%;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.bot {
+  background: #30254e;
+  border: 1px solid var(--purple);
+}
+
+.user {
+  background: #164b60;
+  margin-left: auto;
+  border: 1px solid var(--blue);
+}
+
+.chat-controls {
+  display: flex;
+  gap: 8px;
+}
+
+.chat-controls input {
+  flex: 1;
+  min-width: 0;
+}
+
+footer {
+  text-align: center;
+  color: var(--muted);
+  margin: 25px 0 10px;
+  font-size: 12px;
 }
 </style>
 </head>
 
 <body>
-<main>
 
-<header class="brand">
- <div class="logo">AI</div>
- <div>
-  <h1>AI DE GUIONES</h1>
-  <div class="tag">TU ESTUDIO CREATIVO GAMER · GRATIS</div>
- </div>
+<header>
+  <div class="logo">AI DE GUIONES</div>
+  <p>Tu compañero para crear contenido gamer 🎮</p>
 </header>
 
-<nav class="nav">
- <button class="active" id="homeTab">🎬 Generador</button>
- <button id="chatTab">🤖 Mi IA</button>
+<nav>
+  <button onclick="showScreen('homeScreen')">🎬 Generador</button>
+  <button onclick="showScreen('chatScreen')">🤖 Chat IA</button>
 </nav>
 
-<!-- PANTALLA GENERADOR -->
-<div id="homeScreen" class="screen active">
+<main>
 
-<section class="card">
-<h2>🎬 Crear un guion</h2>
+<section id="homeScreen" class="screen active">
+  <div class="panel">
+    <h2>🎬 Generador de guiones</h2>
+    <p>Prepara tus videos de Free Fire para TikTok y YouTube.</p>
 
-<label for="topic">¿De qué tratará tu video?</label>
-<textarea id="topic" placeholder="Ej.: las novedades de la nueva actualización de Free Fire..."></textarea>
+    <label for="topic">¿De qué tratará tu video?</label>
+    <textarea id="topic" placeholder="Ejemplo: La nueva arma de Free Fire..."></textarea>
 
-<div class="grid">
- <div>
-  <label for="duration">Duración</label>
-  <select id="duration">
-   <option>15 segundos</option>
-   <option selected>30 segundos</option>
-   <option>60 segundos</option>
-   <option>Más de 1 minuto</option>
-   <option>Personalizada</option>
-  </select>
- </div>
- <div>
-  <label for="style">Estilo</label>
-  <select id="style">
-   <option>Viral y energético</option>
-   <option>Profesional</option>
-   <option>Divertido y juvenil</option>
-   <option>Serio e informativo</option>
-  </select>
- </div>
-</div>
+    <label for="style">Estilo del guion</label>
+    <select id="style">
+      <option value="juvenil y divertido">Juvenil y divertido</option>
+      <option value="profesional y gamer">Profesional y gamer</option>
+      <option value="serio y experto">Serio y experto</option>
+      <option value="viral y llamativo">Viral y llamativo</option>
+    </select>
 
-<div id="customWrap" hidden>
- <label for="custom">Duración personalizada</label>
- <input id="custom" placeholder="Ej.: 45 segundos">
-</div>
+    <label for="duration">Duración</label>
+    <select id="duration">
+      <option value="15 segundos">15 segundos</option>
+      <option value="30 segundos">30 segundos</option>
+      <option value="45 segundos">45 segundos</option>
+      <option value="1 minuto">1 minuto</option>
+    </select>
 
-<label for="voice">Voz para leer el guion</label>
-<select id="voice">
- <option value="female">Femenina</option>
- <option value="male">Masculina</option>
-</select>
+    <button class="main-button" onclick="generateScript()">GENERAR GUION ✨</button>
+  </div>
 
-<button class="btn" id="generate">✨ Preparar guion</button>
-<p class="note">Generador de guiones de prueba. La conexión con IA se preparará posteriormente.</p>
+  <div class="panel">
+    <h2>📝 Tu guion</h2>
+    <div id="result">Aquí aparecerá tu guion...</div>
+    <button class="main-button" onclick="copyScript()">📋 COPIAR GUION</button>
+  </div>
 </section>
 
-<section class="card">
-<h2>📝 Tu guion</h2>
-<div class="result" id="result">Tu guion aparecerá aquí.</div>
+<section id="chatScreen" class="screen">
+  <div class="panel">
+    <h2>🤖 Chat IA</h2>
+    <p>¡Hola! Soy tu asistente gamer de demostración.</p>
 
-<div class="actions">
- <button class="btn secondary" id="copy">Copiar</button>
- <button class="btn secondary" id="speak">🔊 Escuchar</button>
-</div>
-<button class="btn secondary" id="stop">Detener voz</button>
+    <div class="chat-box" id="chatBox">
+      <div class="message bot">
+        ¡Hola! 🎮 Puedo ayudarte con ideas, títulos y guiones para Free Fire. ¿Qué quieres crear?
+      </div>
+    </div>
+
+    <div class="chat-controls">
+      <input id="chatInput" type="text" placeholder="Escribe tu mensaje...">
+      <button onclick="sendMessage()">Enviar</button>
+    </div>
+  </div>
 </section>
-
-<section class="card">
-<h3>🌐 Consultar actualizaciones</h3>
-<p class="note">La búsqueda de noticias y actualizaciones todavía no está conectada.</p>
-</section>
-
-</div>
-
-<!-- PANTALLA CHAT -->
-<div id="chatScreen" class="screen">
-
-<section class="card">
-<h2>🤖 AI DE GUIONES</h2>
-<p class="note">Tu asistente creativo gamer.</p>
-
-<div class="chat-box" id="chatBox">
- <div class="message bot">
- ¡Hola! Soy AI DE GUIONES. 🎮
-
-Puedo ayudarte con:
-- Guiones de Free Fire.
-- Ideas para TikTok.
-- Títulos virales.
-- Descripciones y hashtags.
-
-¿Qué vamos a crear hoy?
- </div>
-</div>
-
-<div class="chat-input">
- <input id="chatInput" placeholder="Escribe tu mensaje..." autocomplete="off">
- <button id="sendChat" aria-label="Enviar">➤</button>
-</div>
-
-<p class="note">
-Chat de demostración. Todavía no está conectado a un motor de inteligencia artificial.
-</p>
-</section>
-
-</div>
-
-<footer class="note" style="text-align:center;margin-top:22px">
-AI DE GUIONES · Versión 0.2
-</footer>
 
 </main>
 
-<script>
-const $=id=>document.getElementById(id);
-
-/* NAVEGACIÓN */
-function showScreen(screen){
- const home=screen==='home';
- $('homeScreen').classList.toggle('active',home);
- $('chatScreen').classList.toggle('active',!home);
- $('homeTab').classList.toggle('active',home);
- $('chatTab').classList.toggle('active',!home);
-}
-
-$('homeTab').addEventListener('click',()=>showScreen('home'));
-$('chatTab').addEventListener('click',()=>showScreen('chat'));
-
-/* GENERADOR */
-$('duration').addEventListener('change',()=>{
- $('customWrap').hidden=$('duration').value!=='Personalizada';
-});
-
-$('generate').addEventListener('click',()=>{
- const topic=$('topic').value.trim();
-
- if(!topic){
-  $('result').textContent='Escribe primero el tema de tu video.';
-  return;
- }
-
- const duration=$('duration').value==='Personalizada'
- ?($('custom').value||'duración personalizada')
- :$('duration').value;
-
- const style=$('style').value;
-
- const script=`🎬 TÍTULO: ¡No te pierdas esto de Free Fire!
-
-🔥 GANCHO:
-¡Ey, comunidad! Quédate porque esto te interesa.
-
-🎮 DESARROLLO:
-Hoy vamos a hablar de: ${topic}.
-Te voy a contar lo más importante de forma clara y directa.
-Revisa siempre la información oficial para confirmar los detalles antes de publicar.
-
-🚀 CIERRE:
-¿Tú qué opinas? Déjamelo en los comentarios, comparte el video y sígueme para más contenido de Free Fire.
-
-⏱️ Duración elegida: ${duration}
-🎨 Estilo: ${style}
-
-#FreeFire #GarenaFreeFire #Gaming`;
-
- $('result').textContent=script;
-});
-
-/* COPIAR */
-$('copy').addEventListener('click',async()=>{
- try{
-  await navigator.clipboard.writeText($('result').textContent);
-  $('copy').textContent='¡Copiado!';
-  setTimeout(()=>$('copy').textContent='Copiar',1400);
- }catch(e){
-  $('copy').textContent='No disponible';
- }
-});
-
-/* VOZ */
-$('speak').addEventListener('click',()=>{
- if(!('speechSynthesis'in window)){
-  alert('Este navegador no admite lectura de voz.');
-  return;
- }
- speechSynthesis.cancel();
-
- const u=new SpeechSynthesisUtterance($('result').textContent);
- u.lang='es-CO';
-
- const voices=speechSynthesis.getVoices();
- const female=$('voice').value==='female';
- const candidates=voices.filter(v=>v.lang.toLowerCase().startsWith('es'));
-
- const chosen=candidates.find(v=>
-  female
-  ?/female|sabina|helena|paulina/i.test(v.name)
-  :/male|jorge|david|diego/i.test(v.name)
- );
-
- if(chosen)u.voice=chosen;
- speechSynthesis.speak(u);
-});
-
-$('stop').addEventListener('click',()=>speechSynthesis.cancel());
-
-/* CHAT DE DEMOSTRACIÓN */
-function addMessage(text,type){
- const message=document.createElement('div');
- message.className='message '+type;
- message.textContent=text;
- $('chatBox').appendChild(message);
- $('chatBox').scrollTop=$('chatBox').scrollHeight;
-}
-
-function replyTo(text){
- const t=text.toLowerCase();
-
- if(t.includes('guion')||t.includes('free fire')){
-  return '🎮 ¡Vamos a crear contenido de Free Fire! Dime de qué tratará el video y qué duración quieres: 15, 30 o 60 segundos.';
- }
-
- if(t.includes('titulo')||t.includes('título')){
-  return '🔥 Un buen título debe despertar curiosidad. Cuéntame el tema de tu video y te propongo varias ideas.';
- }
-
- if(t.includes('tik')||t.includes('viral')){
-  return '🚀 Para TikTok podemos preparar un gancho llamativo, un desarrollo rápido y un cierre que invite a seguirte.';
- }
-
- if(t.includes('hola')){
-  return '¡Hola! 🎮 ¿Qué contenido vamos a preparar hoy?';
- }
-
- return '¡Buena idea! 🎮 Cuéntame un poco más sobre tu video. Puedo ayudarte con ideas, guiones, títulos y descripciones. Esta es una respuesta de demostración, todavía no soy una IA conectada.';
-}
-
-function sendMessage(){
- const input=$('chatInput');
- const text=input.value.trim();
-
- if(!text)return;
-
- addMessage(text,'user');
- input.value='';
-
- const answer=replyTo(text);
- setTimeout(()=>addMessage(answer,'bot'),350);
-}
-
-$('sendChat').addEventListener('click',sendMessage);
-
-$('chatInput').addEventListener('keydown',e=>{
- if(e.key==='Enter'){
-  e.preventDefault();
-  sendMessage();
- }
-});
-
-/* SERVICE WORKER */
-if('serviceWorker'in navigator){
- window.addEventListener('load',()=>{
-  navigator.serviceWorker.register('./sw.js').catch(()=>{});
- });
-}
-</script>
-
-</body>
-</html>
- 
-<!doctype html>
-<html lang="es">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<meta name="theme-color" content="#100d22">
-<title>AI DE GUIONES</title>
-<link rel="manifest" href="manifest.webmanifest">
-
-<style>
-:root{
- color-scheme:dark;
- --bg:#100d22;
- --panel:#1c1734;
- --muted:#b8b0d3;
- --a:#a855f7;
- --b:#22d3ee;
- --pink:#f472b6;
-}
-*{box-sizing:border-box}
-body{
- margin:0;
- background:
- radial-gradient(circle at 10% 0%,#39205e 0,transparent 35%),
- radial-gradient(circle at 90% 15%,#123e58 0,transparent 30%),
- var(--bg);
- font:16px system-ui;
- color:#fff;
- min-height:100vh;
-}
-main{max-width:760px;margin:auto;padding:22px 16px 48px}
-.brand{display:flex;align-items:center;gap:12px}
-.logo{
- width:54px;height:54px;border-radius:17px;
- background:linear-gradient(135deg,var(--a),var(--b),var(--pink));
- display:grid;place-items:center;font-size:25px;font-weight:900;
- box-shadow:0 0 28px #a855f766;
-}
-h1{font-size:23px;margin:0}
-.tag{font-size:12px;color:#d8c7ff}
-.card{
- background:#1c1734dd;border:1px solid #ffffff20;
- border-radius:20px;padding:17px;margin-top:17px;
- box-shadow:0 12px 36px #0004;
-}
-label{display:block;font-weight:650;margin:12px 0 7px}
-input,textarea,select{
- width:100%;border:1px solid #ffffff25;
- background:#100d22;color:white;border-radius:12px;
- padding:13px;font:inherit;
-}
-textarea{min-height:105px;resize:vertical}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}
-.btn{
- border:0;border-radius:13px;padding:13px 16px;
- font-weight:750;color:white;
- background:linear-gradient(100deg,#9333ea,#2563eb,#db2777);
- width:100%;margin-top:14px;font-size:15px;
-}
-.btn.secondary{background:#342b50;border:1px solid #ffffff25}
-.result{
- white-space:pre-wrap;line-height:1.55;
- background:#100d22;border-radius:13px;
- padding:14px;min-height:90px;
-}
-.note{font-size:12px;line-height:1.5;color:var(--muted)}
-.actions{display:flex;gap:9px}
-.actions button{flex:1}
-
-/* Navegación */
-.nav{display:flex;gap:10px;margin-top:20px}
-.nav button{
- flex:1;padding:13px 8px;border:1px solid #ffffff25;
- border-radius:13px;background:#342b50;color:white;
- font-weight:bold;
-}
-.nav button.active{
- background:linear-gradient(100deg,#9333ea,#2563eb);
-}
-.screen{display:none}
-.screen.active{display:block}
-
-/* Chat */
-.chat-box{
- height:55vh;min-height:300px;max-height:550px;
- overflow-y:auto;display:flex;flex-direction:column;
- gap:12px;padding:12px;background:#100d22;
- border-radius:15px;
-}
-.message{
- padding:12px;border-radius:14px;max-width:88%;
- line-height:1.5;white-space:pre-wrap;
- overflow-wrap:anywhere;
-}
-.bot{background:#342653;align-self:flex-start}
-.user{background:#49318b;align-self:flex-end}
-.chat-input{display:flex;gap:8px;margin-top:12px}
-.chat-input input{min-width:0;flex:1}
-.chat-input button{
- border:0;border-radius:12px;padding:12px 18px;
- color:white;background:linear-gradient(100deg,#9333ea,#2563eb);
- font-size:18px;
-}
-</style>
-</head>
-
-<body>
-<main>
-
-<header class="brand">
- <div class="logo">AI</div>
- <div>
-  <h1>AI DE GUIONES</h1>
-  <div class="tag">TU ESTUDIO CREATIVO GAMER · GRATIS</div>
- </div>
-</header>
-
-<nav class="nav">
- <button class="active" id="homeTab">🎬 Generador</button>
- <button id="chatTab">🤖 Mi IA</button>
-</nav>
-
-<!-- PANTALLA GENERADOR -->
-<div id="homeScreen" class="screen active">
-
-<section class="card">
-<h2>🎬 Crear un guion</h2>
-
-<label for="topic">¿De qué tratará tu video?</label>
-<textarea id="topic" placeholder="Ej.: las novedades de la nueva actualización de Free Fire..."></textarea>
-
-<div class="grid">
- <div>
-  <label for="duration">Duración</label>
-  <select id="duration">
-   <option>15 segundos</option>
-   <option selected>30 segundos</option>
-   <option>60 segundos</option>
-   <option>Más de 1 minuto</option>
-   <option>Personalizada</option>
-  </select>
- </div>
- <div>
-  <label for="style">Estilo</label>
-  <select id="style">
-   <option>Viral y energético</option>
-   <option>Profesional</option>
-   <option>Divertido y juvenil</option>
-   <option>Serio e informativo</option>
-  </select>
- </div>
-</div>
-
-<div id="customWrap" hidden>
- <label for="custom">Duración personalizada</label>
- <input id="custom" placeholder="Ej.: 45 segundos">
-</div>
-
-<label for="voice">Voz para leer el guion</label>
-<select id="voice">
- <option value="female">Femenina</option>
- <option value="male">Masculina</option>
-</select>
-
-<button class="btn" id="generate">✨ Preparar guion</button>
-<p class="note">Generador de guiones de prueba. La conexión con IA se preparará posteriormente.</p>
-</section>
-
-<section class="card">
-<h2>📝 Tu guion</h2>
-<div class="result" id="result">Tu guion aparecerá aquí.</div>
-
-<div class="actions">
- <button class="btn secondary" id="copy">Copiar</button>
- <button class="btn secondary" id="speak">🔊 Escuchar</button>
-</div>
-<button class="btn secondary" id="stop">Detener voz</button>
-</section>
-
-<section class="card">
-<h3>🌐 Consultar actualizaciones</h3>
-<p class="note">La búsqueda de noticias y actualizaciones todavía no está conectada.</p>
-</section>
-
-</div>
-
-<!-- PANTALLA CHAT -->
-<div id="chatScreen" class="screen">
-
-<section class="card">
-<h2>🤖 AI DE GUIONES</h2>
-<p class="note">Tu asistente creativo gamer.</p>
-
-<div class="chat-box" id="chatBox">
- <div class="message bot">
- ¡Hola! Soy AI DE GUIONES. 🎮
-
-Puedo ayudarte con:
-- Guiones de Free Fire.
-- Ideas para TikTok.
-- Títulos virales.
-- Descripciones y hashtags.
-
-¿Qué vamos a crear hoy?
- </div>
-</div>
-
-<div class="chat-input">
- <input id="chatInput" placeholder="Escribe tu mensaje..." autocomplete="off">
- <button id="sendChat" aria-label="Enviar">➤</button>
-</div>
-
-<p class="note">
-Chat de demostración. Todavía no está conectado a un motor de inteligencia artificial.
-</p>
-</section>
-
-</div>
-
-<footer class="note" style="text-align:center;margin-top:22px">
-AI DE GUIONES · Versión 0.2
+<footer>
+  AI DE GUIONES · Versión 0.3
 </footer>
 
-</main>
-
 <script>
-const $=id=>document.getElementById(id);
+function showScreen(screenId) {
+  document.querySelectorAll(".screen").forEach(screen => {
+    screen.classList.remove("active");
+  });
 
-/* NAVEGACIÓN */
-function showScreen(screen){
- const home=screen==='home';
- $('homeScreen').classList.toggle('active',home);
- $('chatScreen').classList.toggle('active',!home);
- $('homeTab').classList.toggle('active',home);
- $('chatTab').classList.toggle('active',!home);
+  document.getElementById(screenId).classList.add("active");
 }
 
-$('homeTab').addEventListener('click',()=>showScreen('home'));
-$('chatTab').addEventListener('click',()=>showScreen('chat'));
+function generateScript() {
+  const topic = document.getElementById("topic").value.trim();
+  const style = document.getElementById("style").value;
+  const duration = document.getElementById("duration").value;
+  const result = document.getElementById("result");
 
-/* GENERADOR */
-$('duration').addEventListener('change',()=>{
- $('customWrap').hidden=$('duration').value!=='Personalizada';
-});
+  if (!topic) {
+    result.textContent = "Primero escribe el tema de tu video.";
+    return;
+  }
 
-$('generate').addEventListener('click',()=>{
- const topic=$('topic').value.trim();
+  result.textContent =
+`🎬 GUION PARA FREE FIRE
 
- if(!topic){
-  $('result').textContent='Escribe primero el tema de tu video.';
-  return;
- }
+🎙️ INTRODUCCIÓN:
+¡Ey, gente! Hoy les traigo un video ${style} sobre Free Fire.
 
- const duration=$('duration').value==='Personalizada'
- ?($('custom').value||'duración personalizada')
- :$('duration').value;
+🔥 DESARROLLO:
+${topic}
 
- const style=$('style').value;
+¿Qué opinan ustedes? Déjenme su opinión en los comentarios.
 
- const script=`🎬 TÍTULO: ¡No te pierdas esto de Free Fire!
+🚀 DESPEDIDA:
+Si te gustó este video, sígueme, dale like y compártelo para que más jugadores lo vean.
 
-🔥 GANCHO:
-¡Ey, comunidad! Quédate porque esto te interesa.
+¡Nos vemos en la próxima partida!
 
-🎮 DESARROLLO:
-Hoy vamos a hablar de: ${topic}.
-Te voy a contar lo más importante de forma clara y directa.
-Revisa siempre la información oficial para confirmar los detalles antes de publicar.
-
-🚀 CIERRE:
-¿Tú qué opinas? Déjamelo en los comentarios, comparte el video y sígueme para más contenido de Free Fire.
-
-⏱️ Duración elegida: ${duration}
-🎨 Estilo: ${style}
-
-#FreeFire #GarenaFreeFire #Gaming`;
-
- $('result').textContent=script;
-});
-
-/* COPIAR */
-$('copy').addEventListener('click',async()=>{
- try{
-  await navigator.clipboard.writeText($('result').textContent);
-  $('copy').textContent='¡Copiado!';
-  setTimeout(()=>$('copy').textContent='Copiar',1400);
- }catch(e){
-  $('copy').textContent='No disponible';
- }
-});
-
-/* VOZ */
-$('speak').addEventListener('click',()=>{
- if(!('speechSynthesis'in window)){
-  alert('Este navegador no admite lectura de voz.');
-  return;
- }
- speechSynthesis.cancel();
-
- const u=new SpeechSynthesisUtterance($('result').textContent);
- u.lang='es-CO';
-
- const voices=speechSynthesis.getVoices();
- const female=$('voice').value==='female';
- const candidates=voices.filter(v=>v.lang.toLowerCase().startsWith('es'));
-
- const chosen=candidates.find(v=>
-  female
-  ?/female|sabina|helena|paulina/i.test(v.name)
-  :/male|jorge|david|diego/i.test(v.name)
- );
-
- if(chosen)u.voice=chosen;
- speechSynthesis.speak(u);
-});
-
-$('stop').addEventListener('click',()=>speechSynthesis.cancel());
-
-/* CHAT DE DEMOSTRACIÓN */
-function addMessage(text,type){
- const message=document.createElement('div');
- message.className='message '+type;
- message.textContent=text;
- $('chatBox').appendChild(message);
- $('chatBox').scrollTop=$('chatBox').scrollHeight;
+⏱️ Duración aproximada: ${duration}`;
 }
 
-function replyTo(text){
- const t=text.toLowerCase();
+function copyScript() {
+  const text = document.getElementById("result").innerText;
 
- if(t.includes('guion')||t.includes('free fire')){
-  return '🎮 ¡Vamos a crear contenido de Free Fire! Dime de qué tratará el video y qué duración quieres: 15, 30 o 60 segundos.';
- }
+  if (!text || text === "Aquí aparecerá tu guion...") {
+    alert("Primero genera un guion.");
+    return;
+  }
 
- if(t.includes('titulo')||t.includes('título')){
-  return '🔥 Un buen título debe despertar curiosidad. Cuéntame el tema de tu video y te propongo varias ideas.';
- }
-
- if(t.includes('tik')||t.includes('viral')){
-  return '🚀 Para TikTok podemos preparar un gancho llamativo, un desarrollo rápido y un cierre que invite a seguirte.';
- }
-
- if(t.includes('hola')){
-  return '¡Hola! 🎮 ¿Qué contenido vamos a preparar hoy?';
- }
-
- return '¡Buena idea! 🎮 Cuéntame un poco más sobre tu video. Puedo ayudarte con ideas, guiones, títulos y descripciones. Esta es una respuesta de demostración, todavía no soy una IA conectada.';
+  if (navigator.clipboard && window.isSecureContext) {
+    navigator.clipboard.writeText(text)
+      .then(() => alert("¡Guion copiado!"));
+  } else {
+    alert("Tu navegador no permite copiar automáticamente. Selecciona el texto y cópialo.");
+  }
 }
 
-function sendMessage(){
- const input=$('chatInput');
- const text=input.value.trim();
+function addMessage(text, type) {
+  const box = document.getElementById("chatBox");
+  const message = document.createElement("div");
 
- if(!text)return;
+  message.className = "message " + type;
+  message.textContent = text;
 
- addMessage(text,'user');
- input.value='';
-
- const answer=replyTo(text);
- setTimeout(()=>addMessage(answer,'bot'),350);
+  box.appendChild(message);
+  box.scrollTop = box.scrollHeight;
 }
 
-$('sendChat').addEventListener('click',sendMessage);
+function replyTo(message) {
+  const text = message.toLowerCase();
 
-$('chatInput').addEventListener('keydown',e=>{
- if(e.key==='Enter'){
-  e.preventDefault();
-  sendMessage();
- }
+  if (text.includes("hola")) {
+    return "¡Hola! 🎮 ¿Qué contenido de Free Fire vamos a preparar hoy?";
+  }
+
+  if (text.includes("guion") || text.includes("guión")) {
+    return "¡Claro! Cuéntame el tema, la duración y el estilo que quieres para tu guion.";
+  }
+
+  if (text.includes("titulo") || text.includes("título")) {
+    return "Un buen título debe despertar curiosidad. Cuéntame de qué trata tu video y te propongo uno.";
+  }
+
+  if (text.includes("viral") || text.includes("visitas")) {
+    return "Para llamar la atención, empieza con una frase que genere curiosidad y muestra lo más interesante al principio.";
+  }
+
+  if (text.includes("free fire")) {
+    return "¡Vamos con Free Fire! Puedo ayudarte a preparar ideas, títulos y guiones para tus videos.";
+  }
+
+  return "¡Interesante! Cuéntame un poco más para ayudarte a crear contenido gamer.";
+}
+
+function sendMessage() {
+  const input = document.getElementById("chatInput");
+  const message = input.value.trim();
+
+  if (!message) return;
+
+  addMessage(message, "user");
+  input.value = "";
+
+  setTimeout(() => {
+    addMessage(replyTo(message), "bot");
+  }, 500);
+}
+
+document.getElementById("chatInput").addEventListener("keydown", function(event) {
+  if (event.key === "Enter") {
+    sendMessage();
+  }
 });
-
-/* SERVICE WORKER */
-if('serviceWorker'in navigator){
- window.addEventListener('load',()=>{
-  navigator.serviceWorker.register('./sw.js').catch(()=>{});
- });
-}
 </script>
 
 </body>
