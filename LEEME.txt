@@ -1,0 +1,20 @@
+AI DE GUIONES - prototipo 0.1
+
+Incluye:
+- Interfaz móvil futurista.
+- Campos para tema, duración y estilo.
+- Plantilla inicial de guion.
+- Copiar el texto.
+- Lectura en voz alta usando las voces disponibles en el teléfono (la selección masculina/femenina depende de las voces instaladas).
+- Base PWA con manifest y service worker.
+
+IMPORTANTE:
+Este prototipo todavía NO está conectado a un servicio de IA ni hace búsquedas reales en Internet.
+Para convertirlo en una IA real hay que crear un backend seguro y conectar un proveedor de IA y un servicio de búsqueda.
+No pongas claves API dentro del HTML ni las compartas públicamente.
+
+Para probar:
+1. Descomprime la carpeta.
+2. Sube su contenido a un hosting HTTPS.
+3. Abre la dirección en Chrome Android y usa "Instalar aplicación" o "Añadir a pantalla de inicio".
+La instalación PWA requiere un sitio servido por HTTPS (o localhost).

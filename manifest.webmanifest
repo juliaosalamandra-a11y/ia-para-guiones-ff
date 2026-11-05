@@ -1,0 +1,9 @@
+{
+  "name": "AI DE GUIONES",
+  "short_name": "AI Guiones",
+  "start_url": "./",
+  "display": "standalone",
+  "background_color": "#100d22",
+  "theme_color": "#100d22",
+  "icons": []
+}

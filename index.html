@@ -1,0 +1,65 @@
+<!doctype html>
+<html lang="es">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#100d22">
+<title>AI DE GUIONES</title>
+<link rel="manifest" href="manifest.webmanifest">
+<style>
+:root{color-scheme:dark;--bg:#100d22;--panel:#1c1734;--muted:#b8b0d3;--a:#a855f7;--b:#22d3ee;--pink:#f472b6}
+*{box-sizing:border-box}body{margin:0;background:radial-gradient(circle at 10% 0%,#39205e 0,transparent 35%),radial-gradient(circle at 90% 15%,#123e58 0,transparent 30%),var(--bg);font:16px system-ui;color:#fff;min-height:100vh}
+main{max-width:760px;margin:auto;padding:22px 16px 48px}.brand{display:flex;align-items:center;gap:12px}.logo{width:54px;height:54px;border-radius:17px;background:linear-gradient(135deg,var(--a),var(--b),var(--pink));display:grid;place-items:center;font-size:25px;font-weight:900;box-shadow:0 0 28px #a855f766}
+h1{font-size:23px;margin:0}small,.muted{color:var(--muted)}.tag{font-size:12px;color:#d8c7ff}
+.card{background:#1c1734dd;border:1px solid #ffffff20;border-radius:20px;padding:17px;margin-top:17px;box-shadow:0 12px 36px #0004}
+label{display:block;font-weight:650;margin:12px 0 7px}input,textarea,select{width:100%;border:1px solid #ffffff25;background:#100d22;color:white;border-radius:12px;padding:13px;font:inherit}textarea{min-height:105px;resize:vertical}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:12px}.btn{border:0;border-radius:13px;padding:13px 16px;font-weight:750;color:white;background:linear-gradient(100deg,#9333ea,#2563eb,#db2777);width:100%;margin-top:14px;font-size:15px}
+.btn.secondary{background:#342b50;border:1px solid #ffffff25}.result{white-space:pre-wrap;line-height:1.55;background:#100d22;border-radius:13px;padding:14px;min-height:90px}
+.note{font-size:12px;line-height:1.5;color:var(--muted)}.actions{display:flex;gap:9px}.actions button{flex:1}
+</style>
+</head>
+<body><main>
+<header class="brand"><div class="logo">AI</div><div><h1>AI DE GUIONES</h1><div class="tag">TU ESTUDIO CREATIVO GAMER · GRATIS</div></div></header>
+<section class="card">
+<h2>🎬 Crear un guion</h2>
+<label for="topic">¿De qué tratará tu video?</label>
+<textarea id="topic" placeholder="Ej.: las novedades de la nueva actualización de Free Fire..."></textarea>
+<div class="grid">
+<div><label for="duration">Duración</label><select id="duration"><option>15 segundos</option><option selected>30 segundos</option><option>60 segundos</option><option>Más de 1 minuto</option><option>Personalizada</option></select></div>
+<div><label for="style">Estilo</label><select id="style"><option>Viral y energético</option><option>Profesional</option><option>Divertido y juvenil</option><option>Serio e informativo</option></select></div>
+</div>
+<div id="customWrap" hidden><label for="custom">Duración personalizada</label><input id="custom" placeholder="Ej.: 45 segundos"></div>
+<label for="voice">Voz para leer el guion</label><select id="voice"><option value="female">Femenina</option><option value="male">Masculina</option></select>
+<button class="btn" id="generate">✨ Preparar guion</button>
+<p class="note">Prototipo inicial: prepara una estructura de guion. La conexión con un motor de IA y la búsqueda web real se añadirán en la siguiente etapa.</p>
+</section>
+<section class="card">
+<h2>📝 Tu guion</h2><div class="result" id="result">Tu guion aparecerá aquí.</div>
+<div class="actions"><button class="btn secondary" id="copy">Copiar</button><button class="btn secondary" id="speak">🔊 Escuchar</button></div>
+<button class="btn secondary" id="stop">Detener voz</button>
+</section>
+<section class="card"><h3>🌐 Consultar actualizaciones</h3><p class="note">Cuando escribas que el tema es una actualización, la futura versión buscará fuentes recientes y verificará fechas antes de redactar. Este prototipo todavía no consulta Internet.</p></section>
+<footer class="note" style="text-align:center;margin-top:22px">AI DE GUIONES · Versión prototipo 0.1</footer>
+</main>
+<script>
+const $=id=>document.getElementById(id);
+$('duration').addEventListener('change',()=>{$('customWrap').hidden=$('duration').value!=='Personalizada'});
+$('generate').addEventListener('click',()=>{
+ const topic=$('topic').value.trim(); if(!topic){$('result').textContent='Escribe primero el tema de tu video.';return}
+ const duration=$('duration').value==='Personalizada'?($('custom').value||'duración personalizada'):$('duration').value;
+ const style=$('style').value;
+ const script=`🎬 TÍTULO: ¡No te pierdas esto de Free Fire!\n\n🔥 GANCHO:\n¡Ey, comunidad! Quédate porque esto te interesa.\n\n🎮 DESARROLLO:\nHoy vamos a hablar de: ${topic}. Te voy a contar lo más importante de forma clara y directa. Revisa siempre la información oficial para confirmar los detalles antes de publicar.\n\n🚀 CIERRE:\n¿Tú qué opinas? Déjamelo en los comentarios, comparte el video y sígueme para más contenido de Free Fire.\n\n⏱️ Duración elegida: ${duration}\n🎨 Estilo: ${style}\n\n#FreeFire #GarenaFreeFire #Gaming`;
+ $('result').textContent=script;
+});
+$('copy').addEventListener('click',async()=>{try{await navigator.clipboard.writeText($('result').textContent);$('copy').textContent='¡Copiado!';setTimeout(()=>$('copy').textContent='Copiar',1400)}catch(e){$('copy').textContent='No disponible'}});
+$('speak').addEventListener('click',()=>{
+ if(!('speechSynthesis'in window)){alert('Este navegador no admite lectura de voz.');return}
+ speechSynthesis.cancel();const u=new SpeechSynthesisUtterance($('result').textContent);u.lang='es-CO';
+ const voices=speechSynthesis.getVoices();const female=$('voice').value==='female';
+ const candidates=voices.filter(v=>v.lang.toLowerCase().startsWith('es'));
+ const chosen=candidates.find(v=>female?/female|sabina|helena|paulina/i.test(v.name):/male|jorge|david|diego/i.test(v.name));
+ if(chosen)u.voice=chosen;speechSynthesis.speak(u);
+});
+$('stop').addEventListener('click',()=>speechSynthesis.cancel());
+if('serviceWorker'in navigator)window.addEventListener('load',()=>navigator.serviceWorker.register('./sw.js').catch(()=>{}));
+</script></body></html>
